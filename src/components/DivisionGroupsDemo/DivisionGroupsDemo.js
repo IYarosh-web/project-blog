@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
+import {LayoutGroup, motion} from 'motion/react';
 
 import { range } from '@/utils';
 import Card from '@/components/Card';
@@ -14,6 +15,8 @@ function DivisionGroupsDemo({
   initialNumOfGroups = 1,
   includeRemainderArea,
 }) {
+  const id = React.useId();
+
   const [numOfGroups, setNumOfGroups] = React.useState(
     initialNumOfGroups
   );
@@ -54,25 +57,30 @@ function DivisionGroupsDemo({
         />
       </header>
 
-      <div className={styles.demoWrapper}>
-        <div
-          className={clsx(styles.demoArea)}
-          style={gridStructure}
-        >
-          {range(numOfGroups).map((groupIndex) => (
-            <div key={groupIndex} className={styles.group}>
-              {range(numOfItemsPerGroup).map((index) => {
-                return (
-                  <div
-                    key={index}
-                    className={styles.item}
-                  />
-                );
-              })}
-            </div>
-          ))}
+      <LayoutGroup>
+        <div className={styles.demoWrapper}>
+          <div
+            className={clsx(styles.demoArea)}
+            style={gridStructure}
+          >
+            {range(numOfGroups).map((groupIndex) => (
+              <div key={groupIndex} className={styles.group}>
+                {range(numOfItemsPerGroup).map((index) => {
+                  const layoutId = `${id}-${(groupIndex * numOfItemsPerGroup) + index}`;
+                  return (
+                    <motion.div
+                      key={layoutId}
+                      layoutId={layoutId}
+                      layout
+                      className={styles.item}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </LayoutGroup>
 
       {includeRemainderArea && (
         <div className={styles.remainderArea}>
@@ -81,8 +89,9 @@ function DivisionGroupsDemo({
           </p>
 
           {range(remainder).map((index) => {
+            const layoutId = `${id}-${(numOfGroups * numOfItemsPerGroup) + index}`;
             return (
-              <div key={index} className={styles.item} />
+              <motion.div key={layoutId} layout layoutId={layoutId} className={styles.item} />
             );
           })}
         </div>
