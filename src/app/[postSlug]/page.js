@@ -6,8 +6,9 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
 import DivisionGroupsDemo from '@/components/DivisionGroupsDemo';
+import CircularColorsDemo from '@/components/CircularColorsDemo';
 
-const components = {pre: CodeSnippet, DivisionGroupsDemo};
+const components = {pre: CodeSnippet, DivisionGroupsDemo, CircularColorsDemo};
 
 async function BlogPost({params}) {
   const {postSlug} = await params;
