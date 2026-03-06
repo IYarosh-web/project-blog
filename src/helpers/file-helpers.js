@@ -5,6 +5,8 @@ import matter from 'gray-matter';
 export async function getBlogPostList() {
   const fileNames = await readDirectory('/content');
 
+  await new Promise(resolve => setTimeout(resolve, 4000));
+
   const blogPosts = [];
 
   for (let fileName of fileNames) {
