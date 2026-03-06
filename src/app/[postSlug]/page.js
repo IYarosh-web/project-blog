@@ -22,4 +22,14 @@ async function BlogPost({params}) {
   );
 }
 
+export async function generateMetadata({params}) {
+  const {postSlug} = await params;
+  const {frontmatter} = await loadBlogPost(postSlug);
+
+  return {
+    title: frontmatter.title,
+    description: frontmatter.abstract,
+  }
+}
+
 export default BlogPost;
